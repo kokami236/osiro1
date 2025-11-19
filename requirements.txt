@@ -1,0 +1,8 @@
+easydict
+tqdm
+h5py
+matplotlib
+numpy
+open3d==0.10.0.0
+opencv-python
+scipy
