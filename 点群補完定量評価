@@ -1,0 +1,56 @@
+import open3d as o3d
+import numpy as np
+
+def compute_chamfer_distance(path_a, path_b):
+    # 1. PLYファイルの読み込み
+    # メッシュの場合は点群にサンプリングする必要があります
+    mesh_a = o3d.io.read_triangle_mesh(path_a)
+    mesh_b = o3d.io.read_triangle_mesh(path_b)
+
+    # ファイルが点群(Point Cloud)かメッシュかを判定して処理
+    # (ここではメッシュとして読み込めなければ点群として読み直す、あるいはメッシュならサンプリングする処理)
+    
+    def get_pcd(path):
+        try:
+            # まず点群として読み込んでみる
+            pcd = o3d.io.read_point_cloud(path)
+            if not pcd.has_points():
+                # 点がない場合（メッシュデータの場合）、メッシュとして読み込んでサンプリング
+                mesh = o3d.io.read_triangle_mesh(path)
+                # 点の数を揃えるのが一般的（例: 30,000点）
+                pcd = mesh.sample_points_uniformly(number_of_points=30000)
+            return pcd
+        except Exception as e:
+            print(f"Error loading {path}: {e}")
+            return None
+
+    pcd_a = get_pcd(path_a)
+    pcd_b = get_pcd(path_b)
+
+    if pcd_a is None or pcd_b is None:
+        return
+
+    # 2. 距離の計算 (A -> B)
+    # Aの各点について、Bの中で最も近い点までの距離を計算
+    dists_a_to_b = pcd_a.compute_point_cloud_distance(pcd_b)
+    dists_a_to_b = np.asarray(dists_a_to_b)
+
+    # 3. 距離の計算 (B -> A)
+    # Bの各点について、Aの中で最も近い点までの距離を計算
+    dists_b_to_a = pcd_b.compute_point_cloud_distance(pcd_a)
+    dists_b_to_a = np.asarray(dists_b_to_a)
+
+    # 4. Chamfer Distance の算出
+    # 一般的には二乗距離の平均をとります (Mean Squared Error)
+    chamfer_dist = np.mean(dists_a_to_b**2) + np.mean(dists_b_to_a**2)
+    
+    # ルートを取る定義の場合もあります (Root Mean Square)
+    # chamfer_dist = np.mean(dists_a_to_b) + np.mean(dists_b_to_a)
+
+    print(f"Chamfer Distance (L2 squared): {chamfer_dist}")
+    return chamfer_dist
+
+# 使用例
+file1 = "model_1.ply"
+file2 = "model_2.ply"
+compute_chamfer_distance(file1, file2)
