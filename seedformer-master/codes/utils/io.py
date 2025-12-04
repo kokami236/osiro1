@@ -16,6 +16,8 @@ import cv2
 import h5py
 import numpy as np
 import open3d
+# ▼▼▼【これを追加】Open3Dのログをエラー以外非表示にする設定 ▼▼▼
+open3d.utility.set_verbosity_level(open3d.utility.VerbosityLevel.Error)
 import os
 import sys
 

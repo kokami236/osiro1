@@ -178,19 +178,22 @@ class ShapeNetDataLoader(object):
             for s in tqdm(samples, leave=False):
 
                 if subset == 'test':
-
                     gt_path = cfg.DATASETS.SHAPENET.COMPLETE_POINTS_PATH % (
                         subset, dc['taxonomy_id'], s)
-                    file_list.append({
-                        'taxonomy_id':
-                        dc['taxonomy_id'],
-                        'model_id':
-                        s,
-                        'partial_cloud_path':
-                        gt_path.replace('complete', 'partial'),
-                        'gtcloud_path':
-                        gt_path
-                    })
+                    
+                    # 修正: 8つの視点すべてをテスト対象としてリストに追加する
+                    # train_pcn.py で設定した PARTIAL_POINTS_PATH (%02dを含む) を使用
+                    for i in range(cfg.DATASETS.SHAPENET.N_RENDERINGS):
+                        file_list.append({
+                            'taxonomy_id':
+                            dc['taxonomy_id'],
+                            'model_id':
+                            s,
+                            'partial_cloud_path':
+                            cfg.DATASETS.SHAPENET.PARTIAL_POINTS_PATH % (subset, dc['taxonomy_id'], s, i),
+                            'gtcloud_path':
+                            gt_path
+                        })
                 else:
                     file_list.append({
                         'taxonomy_id':

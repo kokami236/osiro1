@@ -64,10 +64,10 @@ def PCNConfig():
     __C.DATASETS.COMPLETION3D.COMPLETE_POINTS_PATH   = '/path/to/datasets/Completion3D/%s/gt/%s/%s.h5'
     __C.DATASETS.SHAPENET                            = edict()
     __C.DATASETS.SHAPENET.CATEGORY_FILE_PATH         = './datasets/ShapeNet.json'
-    __C.DATASETS.SHAPENET.N_RENDERINGS               = 8
+    __C.DATASETS.SHAPENET.N_RENDERINGS               = 1
     __C.DATASETS.SHAPENET.N_POINTS                   = 2048
-    __C.DATASETS.SHAPENET.PARTIAL_POINTS_PATH        = '<*PATH-TO-YOUR-DATASET*>/PCN/%s/partial/%s/%s/%02d.pcd'
-    __C.DATASETS.SHAPENET.COMPLETE_POINTS_PATH       = '<*PATH-TO-YOUR-DATASET*>/PCN/%s/complete/%s/%s.pcd'
+    __C.DATASETS.SHAPENET.PARTIAL_POINTS_PATH        = '/home/limu/seedformer-master/ShapeNetCompletion/%s/partial/%s/%s/%02d.pcd'
+    __C.DATASETS.SHAPENET.COMPLETE_POINTS_PATH       = '/home/limu/seedformer-master/ShapeNetCompletion/%s/complete/%s/%s.pcd'
 
     #
     # Dataset
@@ -84,6 +84,7 @@ def PCNConfig():
 
     __C.CONST.NUM_WORKERS                            = 8
     __C.CONST.N_INPUT_POINTS                         = 2048
+    __C.CONST.WEIGHTS = '/home/limu/seedformer-master/codes/shapenet55-20251120T032419Z-1-001/shapenet55/ShapeNet-55/ckpt-best.pth'  # コメントを外し、実際のファイルパスを指定
 
     #
     # Directories
@@ -99,13 +100,13 @@ def PCNConfig():
     # Network
     #
     __C.NETWORK                                      = edict()
-    __C.NETWORK.UPSAMPLE_FACTORS                     = [1, 4, 8] # 16384
+    __C.NETWORK.UPSAMPLE_FACTORS                     = [1, 4, 4] # 16384
 
     #
     # Train
     #
     __C.TRAIN                                        = edict()
-    __C.TRAIN.BATCH_SIZE                             = 48
+    __C.TRAIN.BATCH_SIZE                             = 12
     __C.TRAIN.N_EPOCHS                               = 400
     __C.TRAIN.SAVE_FREQ                              = 25
     __C.TRAIN.LEARNING_RATE                          = 0.001
@@ -225,26 +226,38 @@ def test_net(cfg):
                                                   pin_memory=True,
                                                   shuffle=False)
 
-    # Path for pretrained model
+# Path for pretrained model
     if args.pretrained == '':
+        # 自動検索ロジック（そのまま）
         list_trains = os.listdir(cfg.DIR.OUT_PATH)
         list_pretrained = [train_name for train_name in list_trains if train_name.startswith(TRAIN_NAME+'_Log')]
         if len(list_pretrained) != 1:
             raise ValueError('Find {:d} models. Please specify a path for testing.'.format(len(list_pretrained)))
-
         cfg.DIR.PRETRAIN = list_pretrained[0]
+        cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
+        
+    elif os.path.isfile(args.pretrained):
+        # 【修正】直接 .pth ファイルが指定された場合の処理を追加
+        cfg.CONST.WEIGHTS = args.pretrained
+        # 結果保存用にフォルダ名を適当に生成（ファイル名の親フォルダ名を使用）
+        folder_name = os.path.basename(os.path.dirname(args.pretrained))
+        cfg.DIR.PRETRAIN = folder_name
+    
     else:
+        # フォルダパスが指定された場合の処理
         cfg.DIR.PRETRAIN = args.pretrained
+        cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
 
 
     # Set up folders for logs and checkpoints
-    cfg.DIR.TEST_PATH = os.path.join(cfg.DIR.TEST_PATH, cfg.DIR.PRETRAIN)
+    # 出力先を '../test/フォルダ名' に強制して、元のパスを汚さないようにする
+    cfg.DIR.TEST_PATH = os.path.join('../test', cfg.DIR.PRETRAIN)
     cfg.DIR.RESULTS = os.path.join(cfg.DIR.TEST_PATH, 'outputs')
     cfg.DIR.LOGS = cfg.DIR.TEST_PATH
+    
     print('Saving outdir: {}'.format(cfg.DIR.TEST_PATH))
     if not os.path.exists(cfg.DIR.RESULTS):
         os.makedirs(cfg.DIR.RESULTS)
-
 
     #######################
     # Prepare Network Model
@@ -256,7 +269,7 @@ def test_net(cfg):
         model = torch.nn.DataParallel(model).cuda()
 
     # load pretrained model
-    cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
+    #cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
     print('Recovering from %s ...' % (cfg.CONST.WEIGHTS))
     checkpoint = torch.load(cfg.CONST.WEIGHTS)
     model.load_state_dict(checkpoint['model'])
