@@ -180,25 +180,40 @@ class UpSamplePoints(object):
         self.n_points = parameters['n_points']
         self.jitter_sigma = parameters.get('jitter_sigma', 0.0)
         self.jitter_clip  = parameters.get('jitter_clip', 0.05)
+        self.deterministic = parameters.get('deterministic', False)
 
     def __call__(self, ptcloud):
-        curr = ptcloud.shape[0]
+        curr = int(ptcloud.shape[0])
 
-        # curr >= n_points: 全体からランダムに間引く（バグ修正版）
+        if curr <= 0:
+            return np.zeros((self.n_points, 3), dtype=np.float32)
+
         if curr >= self.n_points:
-            idx = np.random.permutation(curr)[:self.n_points]
-            return ptcloud[idx]
+            if self.deterministic:
+                # 固定：先頭から（または等間隔でもOK）
+                idx = np.arange(self.n_points)
+            else:
+                idx = np.random.permutation(curr)[:self.n_points]
+            return ptcloud[idx].astype(np.float32)
 
-        # curr < n_points: 置換ありサンプリングで埋める（tile連結をやめる）
-        idx = np.random.choice(curr, self.n_points, replace=True)
-        out = ptcloud[idx].copy()
+        # curr < n_points
+        if self.deterministic:
+            # 固定：順番に繰り返し
+            reps = self.n_points // curr
+            rem  = self.n_points % curr
+            idx = np.concatenate([np.tile(np.arange(curr), reps), np.arange(rem)], axis=0)
+        else:
+            idx = np.random.choice(curr, self.n_points, replace=True)
 
-        # 完全重複を少し崩す（必要なときだけ）
-        if self.jitter_sigma > 0:
+        out = ptcloud[idx].copy().astype(np.float32)
+
+        # jitter（TRAINだけ推奨）
+        if (not self.deterministic) and (self.jitter_sigma > 0):
             noise = self.jitter_sigma * np.random.randn(*out.shape)
             out += np.clip(noise, -self.jitter_clip, self.jitter_clip).astype(np.float32)
 
         return out
+
 
 
 
