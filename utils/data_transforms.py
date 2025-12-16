@@ -178,23 +178,28 @@ class RandomBackground(object):
 class UpSamplePoints(object):
     def __init__(self, parameters):
         self.n_points = parameters['n_points']
+        self.jitter_sigma = parameters.get('jitter_sigma', 0.0)
+        self.jitter_clip  = parameters.get('jitter_clip', 0.05)
 
     def __call__(self, ptcloud):
         curr = ptcloud.shape[0]
-        need = self.n_points - curr
 
-        if need < 0:
-            return ptcloud[np.random.permutation(self.n_points)]
+        # curr >= n_points: 全体からランダムに間引く（バグ修正版）
+        if curr >= self.n_points:
+            idx = np.random.permutation(curr)[:self.n_points]
+            return ptcloud[idx]
 
-        while curr <= need:
-            ptcloud = np.tile(ptcloud, (2, 1))
-            need -= curr
-            curr *= 2
+        # curr < n_points: 置換ありサンプリングで埋める（tile連結をやめる）
+        idx = np.random.choice(curr, self.n_points, replace=True)
+        out = ptcloud[idx].copy()
 
-        choice = np.random.permutation(need)
-        ptcloud = np.concatenate((ptcloud, ptcloud[choice]))
+        # 完全重複を少し崩す（必要なときだけ）
+        if self.jitter_sigma > 0:
+            noise = self.jitter_sigma * np.random.randn(*out.shape)
+            out += np.clip(noise, -self.jitter_clip, self.jitter_clip).astype(np.float32)
 
-        return ptcloud
+        return out
+
 
 
 class RandomSamplePoints(object):
