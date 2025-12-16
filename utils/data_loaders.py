@@ -529,33 +529,43 @@ class ShapeNet55DataLoader(object):
 #####################################追加
 class CustomDataLoader(ShapeNetDataLoader):
     """
-    Custom Dataset Loader (for .pcd files)
+    Custom Dataset Loader (.pcd)
+    - train: partialをn_renderingsからランダム選択
+    - val : partialは固定(0番)
+    - test: partialを全視点列挙（00〜04など）
     """
     def __init__(self, cfg):
-        super(CustomDataLoader, self).__init__(cfg)
-        # Custom.json を読み込む
+        # ShapeNetDataLoader の init は ShapeNet.json を読みに行くので呼ばない方が安全
+        self.cfg = cfg
         with open(cfg.DATASETS.CUSTOM.CATEGORY_FILE_PATH) as f:
             self.dataset_categories = json.loads(f.read())
 
     def get_dataset(self, subset):
-        n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS if subset == DatasetSubset.TRAIN else 1
-        
+        if subset == DatasetSubset.TRAIN:
+            n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS
+        elif subset == DatasetSubset.TEST:
+            n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS  # ★全視点評価したいなら
+        else:  # VAL
+            n_renderings = 1
+
         file_list = self._get_file_list(self.cfg, self._get_subset(subset), n_renderings)
         transforms = self._get_transforms(self.cfg, subset)
-        
+
         return Dataset(
             {
                 'n_renderings': n_renderings,
                 'required_items': ['partial_cloud', 'gtcloud'],
                 'shuffle': subset == DatasetSubset.TRAIN
-            }, file_list, transforms)
+            },
+            file_list,
+            transforms
+        )
 
     def _get_transforms(self, cfg, subset):
-        # .pcdでも前処理は同じです
         if subset == DatasetSubset.TRAIN:
             return utils.data_transforms.Compose([{
                 'callback': 'UpSamplePoints',
-                'parameters': { 'n_points': cfg.DATASETS.CUSTOM.N_POINTS },
+                'parameters': {'n_points': cfg.DATASETS.CUSTOM.N_POINTS},
                 'objects': ['partial_cloud']
             }, {
                 'callback': 'RandomMirrorPoints',
@@ -567,45 +577,58 @@ class CustomDataLoader(ShapeNetDataLoader):
         else:
             return utils.data_transforms.Compose([{
                 'callback': 'UpSamplePoints',
-                'parameters': { 'n_points': cfg.DATASETS.CUSTOM.N_POINTS },
+                'parameters': {'n_points': cfg.DATASETS.CUSTOM.N_POINTS},
                 'objects': ['partial_cloud']
             }, {
                 'callback': 'ToTensor',
                 'objects': ['partial_cloud', 'gtcloud']
             }])
+
+    def _get_subset(self, subset):
+        if subset == DatasetSubset.TRAIN:
+            return 'train'
+        elif subset == DatasetSubset.VAL:
+            return 'val'
+        else:
+            return 'test'
+
     def _get_file_list(self, cfg, subset, n_renderings=1):
         file_list = []
         for dc in self.dataset_categories:
-            logging.info('Collecting Custom files: [ID=%s]' % (dc['taxonomy_id']))
-            samples = dc[subset]
-
+            samples = dc.get(subset, [])
             for s in tqdm(samples, leave=False):
-                # Completeパスの生成 (変数 s だけ渡す)
-                gt_path = cfg.DATASETS.CUSTOM.COMPLETE_POINTS_PATH % s 
-                
+                gt_path = cfg.DATASETS.CUSTOM.COMPLETE_POINTS_PATH % s
+                if len(file_list) < 3:
+                    print("[DBG] model_id:", s)
+                    print("[DBG] gt_path :", gt_path)
+                    for i in range(cfg.DATASETS.CUSTOM.N_RENDERINGS):
+                        p = cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
+                        print("[DBG] partial:", p, "exists=", os.path.exists(p))
+                    print("[DBG] gt exists:", os.path.exists(gt_path))
+
                 if subset == 'test':
-                    # テスト時
+                    # testは全視点を列挙（i=0..N-1）
                     for i in range(n_renderings):
                         file_list.append({
                             'taxonomy_id': dc['taxonomy_id'],
                             'model_id': s,
-                            # Partialパスの生成 (Test) - 変数 i だけ渡す
-                            'partial_cloud_path': cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s,i),
+                            'partial_cloud_path': cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i),
                             'gtcloud_path': gt_path
                         })
                 else:
-                    # 学習時 (Train/Val)
+                    # train/val はリストで渡す（Dataset側でrand_idx選択）
                     partial_paths = [
-                    	cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH %(s,i)
-                    	for i in range(n_renderings)
-                    	]
-                        # Partialパスの生成 (Train) - 変数 i だけ渡す                    
+                        cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
+                        for i in range(n_renderings)
+                    ]
                     file_list.append({
                         'taxonomy_id': dc['taxonomy_id'],
                         'model_id': s,
                         'partial_cloud_path': partial_paths,
-                        'gtcloud_path': gt_path,
+                        'gtcloud_path': gt_path
                     })
+
+        logging.info('Custom dataset: total files = %d', len(file_list))
         return file_list
 # //////////////////////////////////////////// = Dataset Loader Mapping = //////////////////////////////////////////// #
 

@@ -115,7 +115,7 @@ def PCNConfig():
     # Train
     #
     __C.TRAIN                                        = edict()
-    __C.TRAIN.BATCH_SIZE                             = 12
+    __C.TRAIN.BATCH_SIZE                             = 8
     __C.TRAIN.N_EPOCHS                               = 400
     __C.TRAIN.SAVE_FREQ                              = 25
     __C.TRAIN.LEARNING_RATE                          = 0.001
