@@ -75,34 +75,89 @@ class Dataset(torch.utils.data.dataset.Dataset):
         self.options = options
         self.file_list = file_list
         self.transforms = transforms
-        self.cache = dict()
+        self.cache = dict()  # ここに point_count をキャッシュする
 
     def __len__(self):
         return len(self.file_list)
 
+    def _get_point_count(self, path: str) -> int:
+        # 点数だけ欲しいので、IO.getのshape[0]をキャッシュ
+        if path in self.cache:
+            return self.cache[path]
+        try:
+            pts = IO.get(path)
+            n = int(pts.shape[0])
+        except Exception:
+            n = -1
+        self.cache[path] = n
+        return n
+
+    def _select_best_view_path(self, paths, shuffle: bool) -> str:
+        """
+        paths: partialの候補（list）
+        - min_keep 以上のものだけ残す
+        - 残った中で点数が多い順に top_k を取り、その中から（shuffleなら）ランダム選択
+        - 全滅なら “最大点数” を1つ選ぶ（保険）
+        """
+        sel = self.options.get('view_select', None)
+        if sel is None:
+            # 従来通り（ランダム or 先頭）
+            return random.choice(paths) if shuffle else paths[0]
+
+        min_keep = int(sel.get('min_keep', 256))
+        top_k    = int(sel.get('top_k', 2))
+        mode     = sel.get('mode', 'topk_random')  # 'topk_random' or 'max'
+
+        # 各viewの点数を取得
+        counts = [(p, self._get_point_count(p)) for p in paths]
+        counts = [(p, c) for (p, c) in counts if c > 0]
+
+        if len(counts) == 0:
+            return paths[0]
+
+        # min_keepでフィルタ
+        good = [(p, c) for (p, c) in counts if c >= min_keep]
+
+        # 全滅なら最大点数で保険
+        if len(good) == 0:
+            p_best = max(counts, key=lambda x: x[1])[0]
+            return p_best
+
+        # 点数で降順ソートしてTop-K
+        good.sort(key=lambda x: x[1], reverse=True)
+        topk = good[:max(1, min(top_k, len(good)))]
+
+        if mode == 'max' or (not shuffle):
+            # val/testや shuffle=False は最大を固定で使う（ブレない）
+            return topk[0][0]
+
+        # train は topk の中からランダム（多様性）
+        return random.choice([p for (p, _) in topk])
+
     def __getitem__(self, idx):
         sample = self.file_list[idx]
         data = {}
-        rand_idx = -1
 
-        # random select one sample per shape for training
-        if 'n_renderings' in self.options:
-            rand_idx = random.randint(0, self.options['n_renderings'] -
-                                      1) if self.options['shuffle'] else 0
+        shuffle = bool(self.options.get('shuffle', False))
 
-        # load required data
         for ri in self.options['required_items']:
             file_path = sample['%s_path' % ri]
-            if type(file_path) == list:
-                file_path = file_path[rand_idx]
-            # print(file_path)
+
+            # ★ここが肝：partialの候補が list のとき view選択する
+            if isinstance(file_path, list):
+                if ri == 'partial_cloud':
+                    file_path = self._select_best_view_path(file_path, shuffle=shuffle)
+                else:
+                    # gtcloud側がlistになることは通常ないが、念のため従来通り
+                    file_path = random.choice(file_path) if shuffle else file_path[0]
+
             data[ri] = IO.get(file_path).astype(np.float32)
 
-        # apply transforms
         if self.transforms is not None:
             data = self.transforms(data)
 
         return sample['taxonomy_id'], sample['model_id'], data
+
 
 
 class ShapeNetDataLoader(object):
@@ -528,14 +583,7 @@ class ShapeNet55DataLoader(object):
 
 #####################################追加
 class CustomDataLoader(ShapeNetDataLoader):
-    """
-    Custom Dataset Loader (.pcd)
-    - train: partialをn_renderingsからランダム選択
-    - val : partialは固定(0番)
-    - test: partialを全視点列挙（00〜04など）
-    """
     def __init__(self, cfg):
-        # ShapeNetDataLoader の init は ShapeNet.json を読みに行くので呼ばない方が安全
         self.cfg = cfg
         with open(cfg.DATASETS.CUSTOM.CATEGORY_FILE_PATH) as f:
             self.dataset_categories = json.loads(f.read())
@@ -543,10 +591,17 @@ class CustomDataLoader(ShapeNetDataLoader):
     def get_dataset(self, subset):
         if subset == DatasetSubset.TRAIN:
             n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS
-        elif subset == DatasetSubset.TEST:
-            n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS  # ★全視点評価したいなら
-        else:  # VAL
+            shuffle = True
+            view_select = {'min_keep': 256, 'top_k': 2, 'mode': 'topk_random'}
+        elif subset == DatasetSubset.VAL:
             n_renderings = 1
+            shuffle = False
+            view_select = {'min_keep': 256, 'top_k': 1, 'mode': 'max'}
+        else:  # TEST
+            n_renderings = self.cfg.DATASETS.CUSTOM.N_RENDERINGS
+            shuffle = False
+            # testは列挙したいなら view_select無しでもOK。入れるなら max 固定にすると見栄えは上がる
+            view_select = {'min_keep': 256, 'top_k': 1, 'mode': 'max'}
 
         file_list = self._get_file_list(self.cfg, self._get_subset(subset), n_renderings)
         transforms = self._get_transforms(self.cfg, subset)
@@ -555,11 +610,13 @@ class CustomDataLoader(ShapeNetDataLoader):
             {
                 'n_renderings': n_renderings,
                 'required_items': ['partial_cloud', 'gtcloud'],
-                'shuffle': subset == DatasetSubset.TRAIN
+                'shuffle': shuffle,
+                'view_select': view_select,   # ★追加
             },
             file_list,
             transforms
         )
+
 
     def _get_transforms(self, cfg, subset):
         if subset == DatasetSubset.TRAIN:
