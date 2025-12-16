@@ -553,33 +553,41 @@ class ShapeNet55DataLoader(object):
         else:
             return 'test'
 
-    def _get_file_list(self, cfg, subset):
-        """Prepare file list for the dataset"""
+    def _get_file_list(self, cfg, subset, n_renderings=1):
+    file_list = []
+    for dc in self.dataset_categories:
+        samples = dc.get(subset, [])
+        for s in tqdm(samples, leave=False):
+            gt_path = cfg.DATASETS.CUSTOM.COMPLETE_POINTS_PATH % s
 
-        # Load the dataset indexing file
-        with open(
-                os.path.join(cfg.DATASETS.SHAPENET55.CATEGORY_FILE_PATH,
-                             subset + '.txt'), 'r') as f:
-            lines = f.readlines()
+            # 候補viewを作る（存在チェック込み）
+            partial_paths = []
+            for i in range(cfg.DATASETS.CUSTOM.N_RENDERINGS):
+                p = cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
+                if os.path.exists(p):
+                    partial_paths.append(p)
 
-        # Collect file list
-        file_list = []
-        for line in lines:
-            line = line.strip()
-            taxonomy_id = line.split('-')[0]
-            model_id = line.split('-')[1].split('.')[0]
-            file_list.append({
-                'taxonomy_id':
-                taxonomy_id,
-                'model_id':
-                model_id,
-                'gtcloud_path':
-                cfg.DATASETS.SHAPENET55.COMPLETE_POINTS_PATH % (line),
-            })
+            if subset == 'test':
+                # ★testは「存在するviewだけ」列挙
+                for p in partial_paths:
+                    file_list.append({
+                        'taxonomy_id': dc['taxonomy_id'],
+                        'model_id': s,
+                        'partial_cloud_path': p,
+                        'gtcloud_path': gt_path
+                    })
+            else:
+                # train/valは「リスト」で渡す（Dataset側が選ぶ）
+                file_list.append({
+                    'taxonomy_id': dc['taxonomy_id'],
+                    'model_id': s,
+                    'partial_cloud_path': partial_paths,
+                    'gtcloud_path': gt_path
+                })
 
-        print('Complete collecting files of the dataset. Total files: %d' %
-              len(file_list))
-        return file_list
+    logging.info('Custom dataset: total files = %d', len(file_list))
+    return file_list
+
 
 #####################################追加
 class CustomDataLoader(ShapeNetDataLoader):
