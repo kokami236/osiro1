@@ -152,53 +152,41 @@ def run_inference():
     print(f"Skipped (empty): {skipped_empty}")
 
     # 6) 結合
+    # 6) 結合（生成点群）
     if not all_repaired_parts:
         print("No patches processed.")
         return
-
+    
     generated_points = np.vstack(all_repaired_parts).astype(np.float32)
     print("Merging results...")
     print(f"Generated points total: {generated_points.shape[0]}")
 
-    # --- ノイズ除去：穴埋めっぽい点だけ採用 ---
-    print("Filtering noise (keeping only points that fill holes)...")
+# --- 生成点群だけを PointCloud 化 ---
     pcd_gen = o3d.geometry.PointCloud()
     pcd_gen.points = o3d.utility.Vector3dVector(generated_points)
 
-    dists = np.asarray(pcd_gen.compute_point_cloud_distance(pcd_full))
-    mask = dists > FILL_THRESHOLD
-    points_filling_holes = generated_points[mask]
-    print(f"Points filling holes: {points_filling_holes.shape[0]} (threshold={FILL_THRESHOLD})")
+# --- SOR（生成点群だけに適用）---
+    print("Starting SOR filtering (generated only)...")
+    print("Before SOR:", np.asarray(pcd_gen.points).shape[0])
+    pcd_gen_f, ind = pcd_gen.remove_statistical_outlier(nb_neighbors=30, std_ratio=2.0)  # ←0.1は厳しすぎ
+    print("After  SOR:", np.asarray(pcd_gen_f.points).shape[0])
+    pcd_gen = pcd_gen_f
 
-    final_combined_points = np.vstack((points_full, points_filling_holes)).astype(np.float32)
-
-    out_pcd = o3d.geometry.PointCloud()
-    out_pcd.points = o3d.utility.Vector3dVector(final_combined_points)
-
-    # 色（あれば）
-    if pcd_full.has_colors():
-        colors_original = np.asarray(pcd_full.colors)
-        colors_new = np.tile(np.array([1.0, 0.0, 0.0], dtype=np.float32),
-                             (points_filling_holes.shape[0], 1))
-        out_pcd.colors = o3d.utility.Vector3dVector(np.vstack((colors_original, colors_new)))
-
-    
-    # --- SOR ---
-    print("Starting SOR filtering...")
-    print("Before SOR:", np.asarray(out_pcd.points).shape[0])
-    out_pcd_filtered, ind = out_pcd.remove_statistical_outlier(nb_neighbors=30, std_ratio=0.1)
-    print("After  SOR:", np.asarray(out_pcd_filtered.points).shape[0],
-      "removed:", np.asarray(out_pcd.points).shape[0] - len(ind))
-    out_pcd = out_pcd_filtered
-
-# --- 最終ダウンサンプル ---
+# --- Downsample（生成点群だけ）---
     print(f"Final Downsampling (Voxel Size: {FINAL_VOXEL_SIZE})...")
-    print("Before Downsample:", np.asarray(out_pcd.points).shape[0])
-    out_pcd_final = out_pcd.voxel_down_sample(voxel_size=FINAL_VOXEL_SIZE)
-    print("After  Downsample:", np.asarray(out_pcd_final.points).shape[0])
+    print("Before Downsample:", np.asarray(pcd_gen.points).shape[0])
+    pcd_gen_ds = pcd_gen.voxel_down_sample(voxel_size=FINAL_VOXEL_SIZE)
+    print("After  Downsample:", np.asarray(pcd_gen_ds.points).shape[0])
 
-    o3d.io.write_point_cloud(OUTPUT_PLY, out_pcd_final)
-    print(f"Saved: {OUTPUT_PLY}")
+# --- 全点を赤に（元点群は入れないので混ざらない）---
+    n = np.asarray(pcd_gen_ds.points).shape[0]
+    pcd_gen_ds.colors = o3d.utility.Vector3dVector(
+    np.tile(np.array([1.0, 0.0, 0.0], dtype=np.float32), (n, 1))
+)
+
+o3d.io.write_point_cloud("generated_only_red.ply", pcd_gen_ds)
+print("Saved: generated_only_red.ply")
+
 
 
 if __name__ == "__main__":
