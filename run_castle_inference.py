@@ -10,7 +10,7 @@ from importlib import import_module
 from collections import OrderedDict
 
 # --- 設定パラメータ ---
-MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2025_12_15_05_11_11/checkpoints/ckpt-best.pth"
+MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2025_12_08_04_58_59/checkpoints/ckpt-best.pth"
 INPUT_PLY = "/home/limu/seedformer-master/kesson2.ply"
 OUTPUT_PLY = (
     "kumamoto_overlap_repaired_SOR_cleaned_downsampled.ply"  # 出力ファイル名変更
@@ -139,7 +139,7 @@ def run_inference():
     # --- SOR フィルタリング ---
     print("\nStarting SOR filtering...")
     NB_NEIGHBORS = 30
-    STD_RATIO = 0.1
+    STD_RATIO = 0.01
 
     out_pcd_filtered, ind = out_pcd.remove_statistical_outlier(
         nb_neighbors=NB_NEIGHBORS, std_ratio=STD_RATIO
