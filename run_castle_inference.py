@@ -165,8 +165,9 @@ def run_inference():
     pcd_gen = o3d.geometry.PointCloud()
     pcd_gen.points = o3d.utility.Vector3dVector(generated_points)
     pcd_gen.colors = o3d.utility.Vector3dVector(
-    np.tile(np.array([1.0,0.0,0.0], dtype=np.float32), (len(pcd_gen.points),1))
-)
+        np.tile(np.array([1.0,0.0,0.0], dtype=np.float32),
+                (len(pcd_gen.points),1))
+    )
 
 
 # --- SOR（生成点群だけに適用）---
@@ -185,11 +186,10 @@ def run_inference():
 # --- 全点を赤に（元点群は入れないので混ざらない）---
     n = np.asarray(pcd_gen_ds.points).shape[0]
     pcd_gen_ds.colors = o3d.utility.Vector3dVector(
-    np.tile(np.array([1.0, 0.0, 0.0], dtype=np.float32), (n, 1))
-)
-
-o3d.io.write_point_cloud("generated_only_red.ply", pcd_gen_ds)
-print("Saved: generated_only_red.ply")
+        np.tile(np.array([1.0, 0.0, 0.0], dtype=np.float32), (n, 1))
+    )
+    o3d.io.write_point_cloud("generated_only_red.ply", pcd_gen_ds)
+    print("Saved: generated_only_red.ply")
 
 
 
