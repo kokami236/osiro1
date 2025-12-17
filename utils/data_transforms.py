@@ -177,42 +177,46 @@ class RandomBackground(object):
 
 class UpSamplePoints(object):
     def __init__(self, parameters):
-        self.n_points = parameters['n_points']
-        self.jitter_sigma = parameters.get('jitter_sigma', 0.0)
-        self.jitter_clip  = parameters.get('jitter_clip', 0.05)
-        self.deterministic = parameters.get('deterministic', False)
+        self.n_points = int(parameters['n_points'])
+        self.jitter_sigma = float(parameters.get('jitter_sigma', 0.0))
+        self.jitter_clip  = float(parameters.get('jitter_clip', 0.05))
+        self.deterministic = bool(parameters.get('deterministic', False))
 
     def __call__(self, ptcloud):
+        ptcloud = np.asarray(ptcloud)
         curr = int(ptcloud.shape[0])
+        n = self.n_points
 
         if curr <= 0:
-            return np.zeros((self.n_points, 3), dtype=np.float32)
+            return np.zeros((n, 3), dtype=np.float32)
 
-        if curr >= self.n_points:
+        # --- curr >= n: downsample ---
+        if curr >= n:
             if self.deterministic:
-                # 固定：先頭から（または等間隔でもOK）
-                idx = np.arange(self.n_points)
+                # 等間隔で n 個（固定）
+                idx = np.linspace(0, curr - 1, n, dtype=np.int64)
             else:
-                idx = np.random.permutation(curr)[:self.n_points]
+                idx = np.random.permutation(curr)[:n]
             return ptcloud[idx].astype(np.float32)
 
-        # curr < n_points
+        # --- curr < n: upsample ---
         if self.deterministic:
-            # 固定：順番に繰り返し
-            reps = self.n_points // curr
-            rem  = self.n_points % curr
+            # 周回で埋める（固定）
+            reps = n // curr
+            rem  = n % curr
             idx = np.concatenate([np.tile(np.arange(curr), reps), np.arange(rem)], axis=0)
         else:
-            idx = np.random.choice(curr, self.n_points, replace=True)
+            idx = np.random.choice(curr, n, replace=True)
 
         out = ptcloud[idx].copy().astype(np.float32)
 
-        # jitter（TRAINだけ推奨）
+        # jitter（TRAINのみ推奨）
         if (not self.deterministic) and (self.jitter_sigma > 0):
             noise = self.jitter_sigma * np.random.randn(*out.shape)
             out += np.clip(noise, -self.jitter_clip, self.jitter_clip).astype(np.float32)
 
         return out
+
 
 
 
