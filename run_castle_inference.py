@@ -28,7 +28,7 @@ JITTER_CLIP  = 0.02
 
 # 出力後処理
 FINAL_VOXEL_SIZE = 0.005   # 最終ダウンサンプル
-FILL_THRESHOLD = 0.02      # ★変更: 5cm→2cm（補完点を捨てすぎないように）
+FILL_THRESHOLD = 0.005      # ★変更: 5cm→2cm（補完点を捨てすぎないように）
 SEARCH_MARGIN = 1.05       # 立方体を拾うための半径マージン
 
 
@@ -182,15 +182,20 @@ def run_inference():
                              (points_filling_holes.shape[0], 1))
         out_pcd.colors = o3d.utility.Vector3dVector(np.vstack((colors_original, colors_new)))
 
+    
     # --- SOR ---
     print("Starting SOR filtering...")
-    out_pcd_filtered, _ = out_pcd.remove_statistical_outlier(nb_neighbors=30, std_ratio=0.1)
+    print("Before SOR:", np.asarray(out_pcd.points).shape[0])
+    out_pcd_filtered, ind = out_pcd.remove_statistical_outlier(nb_neighbors=30, std_ratio=0.1)
+    print("After  SOR:", np.asarray(out_pcd_filtered.points).shape[0],
+      "removed:", np.asarray(out_pcd.points).shape[0] - len(ind))
     out_pcd = out_pcd_filtered
 
-    # --- 最終ダウンサンプル ---
+# --- 最終ダウンサンプル ---
     print(f"Final Downsampling (Voxel Size: {FINAL_VOXEL_SIZE})...")
+    print("Before Downsample:", np.asarray(out_pcd.points).shape[0])
     out_pcd_final = out_pcd.voxel_down_sample(voxel_size=FINAL_VOXEL_SIZE)
-    print(f"Points after Downsampling: {np.asarray(out_pcd_final.points).shape[0]}")
+    print("After  Downsample:", np.asarray(out_pcd_final.points).shape[0])
 
     o3d.io.write_point_cloud(OUTPUT_PLY, out_pcd_final)
     print(f"Saved: {OUTPUT_PLY}")
