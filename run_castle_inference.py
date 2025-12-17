@@ -164,6 +164,10 @@ def run_inference():
 # --- 生成点群だけを PointCloud 化 ---
     pcd_gen = o3d.geometry.PointCloud()
     pcd_gen.points = o3d.utility.Vector3dVector(generated_points)
+    pcd_gen.colors = o3d.utility.Vector3dVector(
+    np.tile(np.array([1.0,0.0,0.0], dtype=np.float32), (len(pcd_gen.points),1))
+)
+
 
 # --- SOR（生成点群だけに適用）---
     print("Starting SOR filtering (generated only)...")
