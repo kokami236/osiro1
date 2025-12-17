@@ -177,24 +177,48 @@ class RandomBackground(object):
 
 class UpSamplePoints(object):
     def __init__(self, parameters):
-        self.n_points = parameters['n_points']
+        self.n_points = int(parameters['n_points'])
+        self.jitter_sigma = float(parameters.get('jitter_sigma', 0.0))
+        self.jitter_clip  = float(parameters.get('jitter_clip', 0.05))
+        self.deterministic = bool(parameters.get('deterministic', False))
 
     def __call__(self, ptcloud):
-        curr = ptcloud.shape[0]
-        need = self.n_points - curr
+        ptcloud = np.asarray(ptcloud)
+        curr = int(ptcloud.shape[0])
+        n = self.n_points
 
-        if need < 0:
-            return ptcloud[np.random.permutation(self.n_points)]
+        if curr <= 0:
+            return np.zeros((n, 3), dtype=np.float32)
 
-        while curr <= need:
-            ptcloud = np.tile(ptcloud, (2, 1))
-            need -= curr
-            curr *= 2
+        # --- curr >= n: downsample ---
+        if curr >= n:
+            if self.deterministic:
+                # ���Ԋu�� n �i�Œ�j
+                idx = np.linspace(0, curr - 1, n, dtype=np.int64)
+            else:
+                idx = np.random.permutation(curr)[:n]
+            return ptcloud[idx].astype(np.float32)
 
-        choice = np.random.permutation(need)
-        ptcloud = np.concatenate((ptcloud, ptcloud[choice]))
+        # --- curr < n: upsample ---
+        if self.deterministic:
+            # ����Ŗ��߂�i�Œ�j
+            reps = n // curr
+            rem  = n % curr
+            idx = np.concatenate([np.tile(np.arange(curr), reps), np.arange(rem)], axis=0)
+        else:
+            idx = np.random.choice(curr, n, replace=True)
 
-        return ptcloud
+        out = ptcloud[idx].copy().astype(np.float32)
+
+        # jitter�iTRAIN�̂ݐ����j
+        if (not self.deterministic) and (self.jitter_sigma > 0):
+            noise = self.jitter_sigma * np.random.randn(*out.shape)
+            out += np.clip(noise, -self.jitter_clip, self.jitter_clip).astype(np.float32)
+
+        return out
+
+
+
 
 
 class RandomSamplePoints(object):
