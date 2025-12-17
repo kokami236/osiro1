@@ -671,38 +671,47 @@ class CustomDataLoader(ShapeNetDataLoader):
             samples = dc.get(subset, [])
             for s in tqdm(samples, leave=False):
                 gt_path = cfg.DATASETS.CUSTOM.COMPLETE_POINTS_PATH % s
+                if not os.path.exists(gt_path):
+                    continue
+
+            # まず「存在するpartialだけ」集める
+                partial_paths = []
+                for i in range(n_renderings):
+                    p = cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
+                    if os.path.exists(p):
+                        partial_paths.append(p)
+
+            # viewが無いなら捨てる（2必要なら <2 にする）
+                if len(partial_paths) == 0:
+                    continue
                 if len(file_list) < 3:
                     print("[DBG] model_id:", s)
-                    print("[DBG] gt_path :", gt_path)
-                    for i in range(cfg.DATASETS.CUSTOM.N_RENDERINGS):
-                        p = cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
-                        print("[DBG] partial:", p, "exists=", os.path.exists(p))
-                    print("[DBG] gt exists:", os.path.exists(gt_path))
+                    print("[DBG] gt_path :", gt_path, "exists=", True)
+                    for p in partial_paths:
+                        print("[DBG] partial:", p, "exists=", True)
+                    print("[DBG] #partials:", len(partial_paths))
 
                 if subset == 'test':
-                    # testは全視点を列挙（i=0..N-1）
-                    for i in range(n_renderings):
+                # testは存在するviewだけ列挙
+                    for p in partial_paths:
                         file_list.append({
-                            'taxonomy_id': dc['taxonomy_id'],
-                            'model_id': s,
-                            'partial_cloud_path': cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i),
-                            'gtcloud_path': gt_path
-                        })
-                else:
-                    # train/val はリストで渡す（Dataset側でrand_idx選択）
-                    partial_paths = [
-                        cfg.DATASETS.CUSTOM.PARTIAL_POINTS_PATH % (s, i)
-                        for i in range(n_renderings)
-                    ]
-                    file_list.append({
                         'taxonomy_id': dc['taxonomy_id'],
                         'model_id': s,
-                        'partial_cloud_path': partial_paths,
+                        'partial_cloud_path': p,
                         'gtcloud_path': gt_path
+                    })
+                else:
+                # train/val は list で渡す（Dataset側でview選択）
+                 file_list.append({
+                     'taxonomy_id': dc['taxonomy_id'],
+                     'model_id': s,
+                    'partial_cloud_path': partial_paths,
+                    'gtcloud_path': gt_path
                     })
 
         logging.info('Custom dataset: total files = %d', len(file_list))
         return file_list
+
 # //////////////////////////////////////////// = Dataset Loader Mapping = //////////////////////////////////////////// #
 
 DATASET_LOADER_MAPPING = {
