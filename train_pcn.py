@@ -229,19 +229,19 @@ def train_net(cfg):
 
     train_data_loader = torch.utils.data.DataLoader(dataset=train_dataset_loader.get_dataset(
         utils.data_loaders.DatasetSubset.TRAIN),
-                                                    batch_size=cfg.TRAIN.BATCH_SIZE,
-                                                    num_workers=cfg.CONST.NUM_WORKERS,
-                                                    collate_fn=utils.data_loaders.collate_fn,
-                                                    pin_memory=True,
-                                                    shuffle=True,
-                                                    drop_last=False)
+        batch_size=cfg.TRAIN.BATCH_SIZE,
+        num_workers=cfg.CONST.NUM_WORKERS,
+        collate_fn=utils.data_loaders.collate_fn,
+        pin_memory=True,
+        shuffle=True,
+        drop_last=False)
     val_data_loader = torch.utils.data.DataLoader(dataset=val_dataset_loader.get_dataset(
-        utils.data_loaders.DatasetSubset.TEST),
-                                                  batch_size=cfg.TRAIN.BATCH_SIZE,
-                                                  num_workers=cfg.CONST.NUM_WORKERS//2,
-                                                  collate_fn=utils.data_loaders.collate_fn,
-                                                  pin_memory=True,
-                                                  shuffle=False)
+        utils.data_loaders.DatasetSubset.VAL),
+        batch_size=cfg.TRAIN.BATCH_SIZE,
+        num_workers=cfg.CONST.NUM_WORKERS//2,
+        collate_fn=utils.data_loaders.collate_fn,
+        pin_memory=True,
+        shuffle=False)
 
     # Set up folders for logs and checkpoints
     timestr = time.strftime('_Log_%Y_%m_%d_%H_%M_%S', time.gmtime())
@@ -307,11 +307,11 @@ def test_net(cfg):
 
     val_data_loader = torch.utils.data.DataLoader(dataset=test_dataset_loader.get_dataset(
         utils.data_loaders.DatasetSubset.TEST),
-                                                  batch_size=1,
-                                                  num_workers=cfg.CONST.NUM_WORKERS,
-                                                  collate_fn=utils.data_loaders.collate_fn,
-                                                  pin_memory=True,
-                                                  shuffle=False)
+        batch_size=1,
+        num_workers=cfg.CONST.NUM_WORKERS,
+        collate_fn=utils.data_loaders.collate_fn,
+        pin_memory=True,
+        shuffle=False)
 
 # Path for pretrained model
     if args.pretrained == '':
