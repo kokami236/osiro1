@@ -74,7 +74,7 @@ def PCNConfig():
     __C.DATASETS.CUSTOM.N_RENDERINGS               = 5
     __C.DATASETS.CUSTOM.N_POINTS                   = 2048
     __C.DATASETS.CUSTOM.PARTIAL_POINTS_PATH        = '/home/limu/seedformer-master/My_PCN_Dataset-20251204T033849Z-1-001/My_PCN_Dataset/shapenet_pc/02691156/train/custom/partial/airplane/%s/%02d.pcd'
-    # Complete: 引数は1つ (モデルID %s)
+    # Complete: 引数は1つ (モ�?ルID %s)
     __C.DATASETS.CUSTOM.COMPLETE_POINTS_PATH       = '/home/limu/seedformer-master/My_PCN_Dataset-20251204T033849Z-1-001/My_PCN_Dataset/shapenet_pc/02691156/train/custom/complete/airplane/%s.pcd'
 
 
@@ -93,7 +93,7 @@ def PCNConfig():
 
     __C.CONST.NUM_WORKERS                            = 0
     __C.CONST.N_INPUT_POINTS                         = 2048
-    __C.CONST.WEIGHTS = '/home/limu/seedformer-master/codes/shapenet55-20251120T032419Z-1-001/shapenet55/ShapeNet-55/ckpt-best.pth'  # コメントを外し、実際のファイルパスを指定
+    __C.CONST.WEIGHTS = '/home/limu/seedformer-master/codes/shapenet55-20251120T032419Z-1-001/shapenet55/ShapeNet-55/ckpt-best.pth'  # コメントを外し、実際のファイルパスを指�?
 
     #
     # Directories
@@ -102,7 +102,7 @@ def PCNConfig():
     __C.DIR                                          = edict()
     __C.DIR.OUT_PATH                                 = '../results'
     __C.DIR.TEST_PATH                                = '../test'
-    __C.CONST.DEVICE                                 = '0, 1'
+    __C.CONST.DEVICE                                 = '0,1'
     # __C.CONST.WEIGHTS                                = None # 'ckpt-best.pth'  # specify a path to run test and inference
 
     #
@@ -276,10 +276,10 @@ def train_net(cfg):
         print('Recovering from %s ...' % (cfg.CONST.WEIGHTS))
         checkpoint = torch.load(cfg.CONST.WEIGHTS)
         
-        # モデルの重み(weight)だけを読み込みます
+        # モ�?ルの重み(weight)�?けを読み込みま�?
         model.load_state_dict(checkpoint['model'])
         
-        # 【修正箇所】以前のエポック数やスコアは無視して、リセットしたことを表示します
+        # 【修正�?所】以前�?�エポック数�?スコアは無視して、リセ�?トしたことを表示しま�?
         # print('Recover complete. Current epoch = #%d; best metrics = %s.' % (checkpoint['epoch_index'], checkpoint['best_metrics']))
         print('Weights loaded successfully. Starting fine-tuning from Epoch 0.')
 
@@ -315,7 +315,7 @@ def test_net(cfg):
 
 # Path for pretrained model
     if args.pretrained == '':
-        # 自動検索ロジック（そのまま）
+        # 自動検索ロジ�?ク?��そのまま?�?
         list_trains = os.listdir(cfg.DIR.OUT_PATH)
         list_pretrained = [train_name for train_name in list_trains if train_name.startswith(TRAIN_NAME+'_Log')]
         if len(list_pretrained) != 1:
@@ -324,20 +324,20 @@ def test_net(cfg):
         cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
         
     elif os.path.isfile(args.pretrained):
-        # 【修正】直接 .pth ファイルが指定された場合の処理を追加
+        # 【修正】直接 .pth ファイルが指定された場合�?�処�?を追�?
         cfg.CONST.WEIGHTS = args.pretrained
-        # 結果保存用にフォルダ名を適当に生成（ファイル名の親フォルダ名を使用）
+        # 結果保存用にフォルダ名を適当に生�?�（ファイル名�?�親フォルダ名を使用?�?
         folder_name = os.path.basename(os.path.dirname(args.pretrained))
         cfg.DIR.PRETRAIN = folder_name
     
     else:
-        # フォルダパスが指定された場合の処理
+        # フォルダパスが指定された場合�?�処�?
         cfg.DIR.PRETRAIN = args.pretrained
         cfg.CONST.WEIGHTS = os.path.join(cfg.DIR.OUT_PATH, cfg.DIR.PRETRAIN, 'checkpoints', 'ckpt-best.pth')
 
 
     # Set up folders for logs and checkpoints
-    # 出力先を '../test/フォルダ名' に強制して、元のパスを汚さないようにする
+    # 出力�?�を '../test/フォルダ�?' に強制して、�??のパスを汚さな�?ようにする
     cfg.DIR.TEST_PATH = os.path.join('../test', cfg.DIR.PRETRAIN)
     cfg.DIR.RESULTS = os.path.join(cfg.DIR.TEST_PATH, 'outputs')
     cfg.DIR.LOGS = cfg.DIR.TEST_PATH
