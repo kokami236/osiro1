@@ -9,9 +9,9 @@ from collections import OrderedDict
 sys.path.append(os.path.join(os.getcwd(), "codes"))
 
 # --- 設定パラメータ ---
-MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2025_12_15_05_11_11/checkpoints/ckpt-best.pth"
-INPUT_PLY  = "/home/limu/seedformer-master/kesson2.ply"
-OUTPUT_PLY = "kumamoto_overlap_repaired_SOR_cleaned_downsampled_cube25cm.ply"
+MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2025_12_18_09_02_55/checkpoints/ckpt-best.pth"
+INPUT_PLY  = "/home/limu/seedformer-master/codes/kakegawakesson2.ply"
+OUTPUT_PLY = "suironkakegawa.ply"
 
 DEVICE = torch.device("cuda:0")
 
@@ -188,8 +188,8 @@ def run_inference():
     pcd_gen_ds.colors = o3d.utility.Vector3dVector(
         np.tile(np.array([1.0, 0.0, 0.0], dtype=np.float32), (n, 1))
     )
-    o3d.io.write_point_cloud("generated_only_red.ply", pcd_gen_ds)
-    print("Saved: generated_only_red.ply")
+    o3d.io.write_point_cloud("generated_only_red2.ply", pcd_gen_ds)
+    print("Saved: generated_only_red2.ply")
 
 
 
