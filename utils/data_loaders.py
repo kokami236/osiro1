@@ -144,7 +144,7 @@ class Dataset(torch.utils.data.dataset.Dataset):
         for ri in self.options['required_items']:
             file_path = sample['%s_path' % ri]
 
-            # ★ここが肝：partialの候補が list のとき view選択する
+            # ここが肝：partialの候補が list のとき view選択する
             if isinstance(file_path, list):
                 if ri == 'partial_cloud':
                     file_path = self._select_best_view_path(file_path, shuffle=shuffle)
@@ -661,7 +661,7 @@ class CustomDataLoader(ShapeNetDataLoader):
 
     def _get_file_list(self, cfg, subset, n_renderings=1):
         file_list = []
-        MIN_VIEWS_PER_SAMPLE = 2  # ★B: 2 view以上
+        MIN_VIEWS_PER_SAMPLE = 2  # B: 2 view以上
 
         for dc in self.dataset_categories:
             samples = dc.get(subset, [])
@@ -677,7 +677,7 @@ class CustomDataLoader(ShapeNetDataLoader):
                     if os.path.exists(p):
                         partial_paths.append(p)
 
-                # ★B条件
+                # B条件
                 if len(partial_paths) < MIN_VIEWS_PER_SAMPLE:
                     continue
 
