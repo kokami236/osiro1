@@ -7,8 +7,15 @@
 従来の手法では困難だった、1億点規模の巨大な点群データの処理を可能にするため、データの分割処理や学習プロセスの最適化を行いました。我々は、お城のジオラマデータを学習に用い、スマートフォンで撮影した実在するお城の点群データを補完・修復することに成功しています。
 
 ## デモ / 実行結果
-![Result Comparison]([画像のパスをここに記入])
+実際に欠損したお城の点群データを修復した結果です。
 
+<p align="center">
+  <img src="picture/推論前.png" width="45%" alt="推論前">
+  <img src="picture/推論後.png" width="45%" alt="推論後">
+</p>
+<p align="center">
+  <b>Left: Input (Defective) | Right: Output (Restored)</b>
+</p>
 ## 主な機能と変更点
 オリジナルのSeedFormerに対し、以下の改良を加えています。
 
