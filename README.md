@@ -53,7 +53,7 @@
 2.  `run_castle_inference.py` 内の `path` 変数を、整形したデータのパスに変更します。
 3.  スクリプトを実行します。
     ```bash
-    python3 run_castle_inference.py
+    CC=gcc-9 CXX=g++-9 python3 run_castle_inference.py
     ```
 
 ## 議論・今後の展望
