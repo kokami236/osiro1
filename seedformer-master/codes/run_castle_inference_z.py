@@ -12,9 +12,9 @@ from tqdm import tqdm
 sys.path.append(os.path.join(os.getcwd(), "codes"))
 
 # --- 設定パラメータ ---
-MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2026_01_18_23_14_21/checkpoints/ckpt-best.pth"
-INPUT_PLY = "/home/limu/seedformer-master/codes/kakegawakesson8.ply"
-OUTPUT_PLY = "final_kakegawa_colored_udogakusyuu2_z_sliced.ply"
+MODEL_PATH = "/home/limu/seedformer-master/results/train_pcn_Log_2026_01_21_03_16_39/checkpoints/ckpt-best.pth"
+INPUT_PLY  = "/home/limu/seedformer-master/codes/karatu4hun2 - Cloud.ply"
+OUTPUT_PLY = "final_kakegawa_z_sliced.ply"
 DEVICE = torch.device("cuda:0")
 N_INPUT_POINTS = 2048
 
