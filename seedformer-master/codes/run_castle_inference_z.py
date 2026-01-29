@@ -70,6 +70,17 @@ def run_inference():
     # 2) 入力点群読み込み
     print(f"Reading {INPUT_PLY}...")
     pcd_full = o3d.io.read_point_cloud(INPUT_PLY)
+
+    # -------------------------------------------------------------
+    # ダウンサンプリングを追加
+    # 入力が巨大すぎる場合は大きく、ディテールを残したい場合は小さくします
+    INPUT_VOXEL_SIZE = 0.005  
+
+    print(f" Original points: {len(pcd_full.points)}")
+    pcd_full = pcd_full.voxel_down_sample(voxel_size=INPUT_VOXEL_SIZE)
+    print(f" Downsampled points: {len(pcd_full.points)}")
+    # -------------------------------------------------------------
+    
     points_full = np.asarray(pcd_full.points).astype(np.float32)
     
     if pcd_full.has_colors():
