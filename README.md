@@ -1,80 +1,80 @@
 # osiro1
 # Castle-SeedFormer
 
-## ŠT—v
-–{ƒvƒƒWƒFƒNƒg‚ÍA“_ŒQ•âŠ®ƒ‚ƒfƒ‹ **[SeedFormer](https://github.com/hrzhou2/seedformer.git)** ‚ğƒx[ƒX‚ÉA“ú–{‚ÌéŠsŒš’zi‚¨é‚â_Ğ‚È‚Çj‚Ì‘å‹K–Í“_ŒQƒf[ƒ^Œü‚¯‚Éƒtƒ@ƒCƒ“ƒ`ƒ…[ƒjƒ“ƒO‚ğs‚Á‚½ƒJƒXƒ^ƒ€ƒ‚ƒfƒ‹‚Å‚·B
+## ï¿½Tï¿½v
+ï¿½{ï¿½vï¿½ï¿½ï¿½Wï¿½Fï¿½Nï¿½gï¿½ÍAï¿½_ï¿½Qï¿½âŠ®ï¿½ï¿½ï¿½fï¿½ï¿½ **[SeedFormer](https://github.com/hrzhou2/seedformer.git)** ï¿½ï¿½ï¿½xï¿½[ï¿½Xï¿½ÉAï¿½ï¿½ï¿½{ï¿½Ìï¿½sï¿½ï¿½ï¿½zï¿½iï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Ğ‚È‚Çjï¿½Ì‘ï¿½Kï¿½Í“_ï¿½Qï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Éƒtï¿½@ï¿½Cï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½[ï¿½jï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Xï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Å‚ï¿½ï¿½B
 
-]—ˆ‚Ìè–@‚Å‚Í¢“ï‚¾‚Á‚½A1‰­“_‹K–Í‚Ì‹‘å‚È“_ŒQƒf[ƒ^‚Ìˆ—‚ğ‰Â”\‚É‚·‚é‚½‚ßAƒf[ƒ^‚Ì•ªŠ„ˆ—‚âŠwKƒvƒƒZƒX‚ÌÅ“K‰»‚ğs‚¢‚Ü‚µ‚½B‰äX‚ÍA‚¨é‚ÌƒWƒIƒ‰ƒ}ƒf[ƒ^‚ğŠwK‚É—p‚¢AƒXƒ}[ƒgƒtƒHƒ“‚ÅB‰e‚µ‚½Àİ‚·‚é‚¨é‚Ì“_ŒQƒf[ƒ^‚ğ•âŠ®EC•œ‚·‚é‚±‚Æ‚É¬Œ÷‚µ‚Ä‚¢‚Ü‚·B
+ï¿½]ï¿½ï¿½ï¿½Ìï¿½@ï¿½Å‚Íï¿½ï¿½ï‚¾ï¿½ï¿½ï¿½ï¿½ï¿½A1ï¿½ï¿½ï¿½_ï¿½Kï¿½Í‚Ì‹ï¿½ï¿½ï¿½È“_ï¿½Qï¿½fï¿½[ï¿½^ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â”\ï¿½É‚ï¿½ï¿½é‚½ï¿½ßAï¿½fï¿½[ï¿½^ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½Kï¿½vï¿½ï¿½ï¿½Zï¿½Xï¿½ÌÅ“Kï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½Bï¿½ï¿½Xï¿½ÍAï¿½ï¿½ï¿½ï¿½ÌƒWï¿½Iï¿½ï¿½ï¿½}ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½wï¿½Kï¿½É—pï¿½ï¿½ï¿½Aï¿½Xï¿½}ï¿½[ï¿½gï¿½tï¿½Hï¿½ï¿½ï¿½ÅBï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½é‚¨ï¿½ï¿½Ì“_ï¿½Qï¿½fï¿½[ï¿½^ï¿½ï¿½âŠ®ï¿½Eï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½é‚±ï¿½Æ‚Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-## ƒfƒ‚ / ÀsŒ‹‰Ê
-ÀÛ‚ÉŒ‡‘¹‚µ‚½‚¨é‚Ì“_ŒQƒf[ƒ^‚ğC•œ‚µ‚½Œ‹‰Ê‚Å‚·B
+## ï¿½fï¿½ï¿½ / ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½Û‚ÉŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì“_ï¿½Qï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‚Å‚ï¿½ï¿½B
 
 <p align="center">
-  <img src="picture/„˜_‘O.png" width="45%" alt="„˜_‘O">
-  <img src="picture/„˜_Œã.png" width="45%" alt="„˜_Œã">
+  <img src="picture/ï¿½ï¿½ï¿½_ï¿½O.png" width="45%" alt="ï¿½ï¿½ï¿½_ï¿½O">
+  <img src="picture/ï¿½ï¿½ï¿½_ï¿½ï¿½.png" width="45%" alt="ï¿½ï¿½ï¿½_ï¿½ï¿½">
 </p>
 <p align="center">
   <b>Left: Input (Defective) | Right: Output (Restored)</b>
 </p>
-## å‚È‹@”\‚Æ•ÏX“_
-ƒIƒŠƒWƒiƒ‹‚ÌSeedFormer‚É‘Î‚µAˆÈ‰º‚Ì‰ü—Ç‚ğ‰Á‚¦‚Ä‚¢‚Ü‚·B
+## ï¿½ï¿½È‹@ï¿½\ï¿½Æ•ÏXï¿½_
+ï¿½Iï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½ï¿½SeedFormerï¿½É‘Î‚ï¿½ï¿½Aï¿½È‰ï¿½ï¿½Ì‰ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-### 1. ‘å‹K–Í“_ŒQ‚Ö‚Ì‘Î‰
-* **‰Û‘è**: ƒIƒŠƒWƒiƒ‹ƒ‚ƒfƒ‹‚Í `partial` “ü—Í‚ÌãŒÀ‚ª–ñ2048“_‚Å‚ ‚èA1‰­“_‚ğ’´‚¦‚é‚¨é‚Ìƒf[ƒ^‚ğ‚»‚Ì‚Ü‚ÜŠwK‚³‚¹‚é‚±‚Æ‚Í•s‰Â”\‚Å‚µ‚½B
-* **‰ğŒˆô**: ‘å‹K–Í“_ŒQ‚ğ×‚©‚­•ªŠ„iƒ`ƒƒƒ“ƒN‰»j‚µ‚ÄŠwK‚·‚éƒpƒCƒvƒ‰ƒCƒ“‚ğ\’z‚µ‚Ü‚µ‚½B
+### 1. ï¿½ï¿½Kï¿½Í“_ï¿½Qï¿½Ö‚Ì‘Î‰ï¿½
+* **ï¿½Û‘ï¿½**: ï¿½Iï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ `partial` ï¿½ï¿½ï¿½Í‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2048ï¿½_ï¿½Å‚ï¿½ï¿½ï¿½A1ï¿½ï¿½ï¿½_ï¿½ğ’´‚ï¿½ï¿½é‚¨ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Ü‚ÜŠwï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½é‚±ï¿½Æ‚Í•sï¿½Â”\ï¿½Å‚ï¿½ï¿½ï¿½ï¿½B
+* **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**: ï¿½ï¿½Kï¿½Í“_ï¿½Qï¿½ï¿½ï¿½×‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ÄŠwï¿½Kï¿½ï¿½ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½zï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B
 
-### 2. ƒf[ƒ^ƒNƒŒƒ“ƒWƒ“ƒO‚ÆŠwK‚ÌŒø—¦‰»
-* •ªŠ„‚ÌÛA“_”‚ª2048“_‚É–‚½‚È‚¢ƒ`ƒƒƒ“ƒN‚ÍƒmƒCƒY‚ÆŒ©‚È‚µAŠwKƒf[ƒ^‚©‚çœŠO‚·‚éˆ—‚ğ’Ç‰Á‚µ‚Ü‚µ‚½B
-* Še `partial` ƒf[ƒ^‚É‚¨‚¢‚ÄAÅ‚à“_ŒQ–§“x‚ª‚‚¢i“_”‚ª‘½‚¢j‹“_‚ğ—Dæ“I‚ÉÌ—p‚·‚éƒƒWƒbƒN‚ğÀ‘•‚µAŠwKŒø—¦‚ğŒüã‚³‚¹‚Ü‚µ‚½B
+### 2. ï¿½fï¿½[ï¿½^ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½Oï¿½ÆŠwï¿½Kï¿½ÌŒï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½ï¿½ï¿½ï¿½ï¿½ÌÛAï¿½_ï¿½ï¿½ï¿½ï¿½2048ï¿½_ï¿½É–ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½Íƒmï¿½Cï¿½Yï¿½ÆŒï¿½ï¿½È‚ï¿½ï¿½Aï¿½wï¿½Kï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½çœï¿½Oï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B
+* ï¿½e `partial` ï¿½fï¿½[ï¿½^ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄAï¿½Å‚ï¿½ï¿½_ï¿½Qï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½_ï¿½ï¿½Dï¿½ï¿½Iï¿½ÉÌ—pï¿½ï¿½ï¿½éƒï¿½Wï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½wï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚³ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B
 
-### 3. å—v‚È•ÏXƒtƒ@ƒCƒ‹
-* `train_pcn.py`: ŠwKƒvƒƒZƒX‚ÌÅ“K‰»
-* `data_loader.py`: ‘å‹K–Íƒf[ƒ^‚Ì•ªŠ„“Ç‚İ‚İ‘Î‰
-* `manager.py`: ŠwKŠÇ—ƒƒWƒbƒN‚Ì•ÏX
-* `run_castle_inference.py`: „˜_Às—pƒXƒNƒŠƒvƒg‚Ì’²®
+### 3. ï¿½ï¿½vï¿½È•ÏXï¿½tï¿½@ï¿½Cï¿½ï¿½
+* `train_pcn.py`: ï¿½wï¿½Kï¿½vï¿½ï¿½ï¿½Zï¿½Xï¿½ÌÅ“Kï¿½ï¿½
+* `data_loader.py`: ï¿½ï¿½Kï¿½Íƒfï¿½[ï¿½^ï¿½Ì•ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‘Î‰ï¿½
+* `manager.py`: ï¿½wï¿½Kï¿½Ç—ï¿½ï¿½ï¿½ï¿½Wï¿½bï¿½Nï¿½Ì•ÏX
+* `run_castle_inference.py`: ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½sï¿½pï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½Ì’ï¿½ï¿½ï¿½
 
-## ŠÂ‹«\’z
+## ï¿½Â‹ï¿½ï¿½\ï¿½z
 * Python 3.x
 * PyTorch
 * Open3D
 * **GCC/G++ 9** (Required for compiling custom CUDA ops)
 
-## g—p•û–@ (Workflow)
+## ï¿½gï¿½pï¿½ï¿½ï¿½@ (Workflow)
 
-### 1. ƒf[ƒ^ƒZƒbƒg‚Ìì¬ (Training)
-©•ª‚Ìƒf[ƒ^i‚¨é‚â_Ğ‚È‚Çj‚ÅŠwK‚ğs‚¤ê‡‚Ìè‡‚Å‚·B
+### 1. ï¿½fï¿½[ï¿½^ï¿½Zï¿½bï¿½gï¿½Ìì¬ (Training)
+ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Ğ‚È‚Çjï¿½ÅŠwï¿½Kï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ê‡ï¿½Ìè‡ï¿½Å‚ï¿½ï¿½B
 
-1.  ŠwK‚³‚¹‚½‚¢‘å‹K–Í“_ŒQƒf[ƒ^iPLYŒ`®‚È‚Çj‚ğ—pˆÓ‚µ‚Ü‚·B
-2.  **`ŠwKƒf[ƒ^®Œ`—p.ipynb`** ‚ğÀs‚µ‚Ü‚·B
-    * ‚±‚Ìƒm[ƒgƒuƒbƒN‚ÍA“ü—Íƒf[ƒ^‚ğ `complete`i‹³tƒf[ƒ^j‚Æ `partial`i5‹“_‚©‚ç‚ÌŒ‡‘¹ƒf[ƒ^j‚É®Œ`‚µA`train_pcn.py` ‚Åˆµ‚¦‚éƒf[ƒ^ƒZƒbƒgŒ`®‚É•ÏŠ·‚µ‚Ü‚·B
-3.  ŠwK‚ğÀs‚µ‚Ü‚·B
-    * **’ˆÓ**: ƒJƒXƒ^ƒ€ƒIƒyƒŒ[ƒVƒ‡ƒ“‚ÌƒRƒ“ƒpƒCƒ‹‚É‚Í `gcc-9` / `g++-9` ‚ª•K—v‚Å‚·B
+1.  ï¿½wï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½Í“_ï¿½Qï¿½fï¿½[ï¿½^ï¿½iPLYï¿½`ï¿½ï¿½ï¿½È‚Çjï¿½ï¿½pï¿½Ó‚ï¿½ï¿½Ü‚ï¿½ï¿½B
+2.  **`ï¿½wï¿½Kï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½`ï¿½p.ipynb`** ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+    * ï¿½ï¿½ï¿½Ìƒmï¿½[ï¿½gï¿½uï¿½bï¿½Nï¿½ÍAï¿½ï¿½ï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ `complete`ï¿½iï¿½ï¿½ï¿½tï¿½fï¿½[ï¿½^ï¿½jï¿½ï¿½ `partial`ï¿½i5ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½jï¿½Éï¿½ï¿½`ï¿½ï¿½ï¿½A`train_pcn.py` ï¿½Åˆï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Zï¿½bï¿½gï¿½`ï¿½ï¿½ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+3.  ï¿½wï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+    * **ï¿½ï¿½ï¿½ï¿½**: ï¿½Jï¿½Xï¿½^ï¿½ï¿½ï¿½Iï¿½yï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌƒRï¿½ï¿½ï¿½pï¿½Cï¿½ï¿½ï¿½É‚ï¿½ `gcc-9` / `g++-9` ï¿½ï¿½ï¿½Kï¿½vï¿½Å‚ï¿½ï¿½B
     ```bash
     CC=gcc-9 CXX=g++-9 python3 train_pcn.py
     ```
 
-### 2. „˜_‚ÌÀs (Inference)
-ŠwKÏ‚İƒ‚ƒfƒ‹‚ğg‚Á‚ÄAŒ‡‘¹‚Ì‚ ‚éƒf[ƒ^‚ğC•œ‚·‚éè‡‚Å‚·B
+### 2. ï¿½ï¿½ï¿½_ï¿½Ìï¿½ï¿½s (Inference)
+ï¿½wï¿½Kï¿½Ï‚İƒï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ÄAï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‡ï¿½Å‚ï¿½ï¿½B
 
-1.  •âŠ®‚µ‚½‚¢“_ŒQƒtƒ@ƒCƒ‹‚ğ **`„˜_ƒf[ƒ^®Œ`—p.ipynb`** ‚É“ü—Í‚µA‘Oˆ—‚ğs‚¢‚Ü‚·B
-2.  `run_castle_inference.py` “à‚Ì `path` •Ï”‚ğA®Œ`‚µ‚½ƒf[ƒ^‚ÌƒpƒX‚É•ÏX‚µ‚Ü‚·B
-3.  ƒXƒNƒŠƒvƒg‚ğÀs‚µ‚Ü‚·B
+1.  ï¿½âŠ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Qï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ **`ï¿½ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½`ï¿½p.ipynb`** ï¿½É“ï¿½ï¿½Í‚ï¿½ï¿½Aï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+2.  `run_castle_inference.py` ï¿½ï¿½ï¿½ï¿½ `path` ï¿½Ïï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìƒpï¿½Xï¿½É•ÏXï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+3.  ï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
     ```bash
     CC=gcc-9 CXX=g++-9 python3 run_castle_inference.py
     ```
 
-## ‹c˜_E¡Œã‚Ì“W–]
-* **•âŠ®—Í‚Æ¸“x‚ÌƒgƒŒ[ƒhƒIƒt**:
-    „˜_‚ÉŒ‡‘¹‚ª’˜‚µ‚¢ê‡A`train_pcn.py` ‚Ìƒpƒ‰ƒ[ƒ^‚ğ’²®‚·‚é‚±‚Æ‚Åu•âŠ®—Ív‚ğ‚‚ß‚é‚±‚Æ‚Í‰Â”\‚Å‚·B‚µ‚©‚µA•âŠ®—Í‚ğ‹­‚ß‚·‚¬‚é‚Æ‘S‘Ì‚ª‚Ú‚â‚¯‚½i•½ŠŠ‰»‚³‚ê‚½jo—Í‚É‚È‚éŒXŒü‚ª‚ ‚èAƒfƒBƒe[ƒ‹‚Æ‚ÌƒgƒŒ[ƒhƒIƒt‚ª”­¶‚µ‚Ä‚¢‚Ü‚·B
-* **ƒrƒWƒ…ƒAƒ‹‚Ì‰ü‘P**:
-    „˜_Œ‹‰Ê‚ÌŒ©‚½–ÚiƒeƒNƒXƒ`ƒƒ‚â–§“x‚È‚Çj‚ğ’Ç‹‚·‚éê‡‚ÍA`run_castle_inference.py` ‚ÌŒãˆ—ƒAƒ‹ƒSƒŠƒYƒ€‚ğ‚³‚ç‚É‰ü—Ç‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
+## ï¿½cï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½Ì“Wï¿½]
+* **ï¿½âŠ®ï¿½Í‚Æï¿½ï¿½xï¿½Ìƒgï¿½ï¿½ï¿½[ï¿½hï¿½Iï¿½t**:
+    ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ÉŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½A`train_pcn.py` ï¿½Ìƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ğ’²ï¿½ï¿½ï¿½ï¿½é‚±ï¿½Æ‚Åuï¿½âŠ®ï¿½Ívï¿½ï¿½ï¿½ï¿½ï¿½ß‚é‚±ï¿½Æ‚Í‰Â”\ï¿½Å‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½âŠ®ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½Æ‘Sï¿½Ì‚ï¿½ï¿½Ú‚â‚¯ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½jï¿½oï¿½Í‚É‚È‚ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½fï¿½Bï¿½eï¿½[ï¿½ï¿½ï¿½Æ‚Ìƒgï¿½ï¿½ï¿½[ï¿½hï¿½Iï¿½tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
+* **ï¿½rï¿½Wï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ì‰ï¿½ï¿½P**:
+    ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Ê‚ÌŒï¿½ï¿½ï¿½ï¿½Úiï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½â–§ï¿½xï¿½È‚Çjï¿½ï¿½Ç‹ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÍA`run_castle_inference.py` ï¿½ÌŒãˆï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-## Ql•¶Œ£EƒNƒŒƒWƒbƒg
+## ï¿½Qï¿½lï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Nï¿½ï¿½ï¿½Wï¿½bï¿½g
 * Original Model: [SeedFormer](https://github.com/hrzhou2/seedformer.git)
 
-## ’˜Ò
-* **ƒã s‘¾˜N (Shuntaro Kogami)**
-* ‹ãB‘åŠw HŠw•” “d‹Cî•ñHŠw‰È (Kyushu University, Department of Electrical and Information Engineering)
+## ï¿½ï¿½ï¿½ï¿½
+* **ï¿½ï¿½ï¿½ï¿½ ï¿½sï¿½ï¿½ï¿½N (Shuntaro Kogami)**
+* ï¿½ï¿½Bï¿½ï¿½w ï¿½Hï¿½wï¿½ï¿½ ï¿½dï¿½Cï¿½ï¿½ï¿½Hï¿½wï¿½ï¿½ (Kyushu University, Department of Electrical and Information Engineering)
 # Castle-SeedFormer
 
 ## Overview
@@ -102,6 +102,164 @@ We have made the following improvements to the original SeedFormer:
 * `manager.py`: Modified training management logic.
 * `run_castle_inference.py`: Adjusted for inference execution.
 
+## Internal Processing Flow
+
+This section explains what actually happens inside `seedformer-master/codes/` during training and inference â€” written for readers without a deep machine-learning background.
+
+---
+
+### Training Flow
+
+The goal of training is to teach the AI model a general rule: *"given a point cloud with missing parts, predict what the complete shape should look like."*
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Input Data (prepared in advance)                   â”‚
+â”‚                                                     â”‚
+â”‚  complete/*.pcd  â”€â”€â”€ Ground truth (full 3D scan)    â”‚
+â”‚  partial/*.pcd   â”€â”€â”€ Defective scan (missing parts) â”‚
+â”‚                      * 5 viewpoints per model       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚  train_pcn.py  (entry point)
+                    â”‚  Reads config, sets up data pipeline
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Data Loader  (utils/data_loaders.py)               â”‚
+â”‚  Shuffles and feeds data in batches of 8 pairs      â”‚
+â”‚  to the GPU at a time                               â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  SeedFormer Model  (model.py)   â€” 3-stage pipeline  â”‚
+â”‚                                                     â”‚
+â”‚  Stage 1 â€” FeatureExtractor                         â”‚
+â”‚    2,048 input points â†’ compressed 1,024-dim        â”‚
+â”‚    feature vector  (captures overall shape)         â”‚
+â”‚                                                     â”‚
+â”‚  Stage 2 â€” SeedGenerator                           â”‚
+â”‚    Uses feature vector to generate 256 coarse       â”‚
+â”‚    "seed" points distributed over the full shape    â”‚
+â”‚                                                     â”‚
+â”‚  Stage 3 â€” UpTransformer  (Ã—1 â†’ Ã—4 â†’ Ã—4)           â”‚
+â”‚    Progressively refines seeds into a dense         â”‚
+â”‚    16,384-point completed point cloud               â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Loss Calculation  (utils/loss_utils.py)            â”‚
+â”‚  Measures how far the predicted shape is from the   â”‚
+â”‚  ground truth using Chamfer Distance (CD) â€”         â”‚
+â”‚  a score where lower = more accurate.               â”‚
+â”‚  Evaluated at each of the 3 stages.                 â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Optimizer  (manager.py)                            â”‚
+â”‚  Adam optimizer with gradual warmup LR schedule.    â”‚
+â”‚  Runs for 400 epochs. After each epoch,             â”‚
+â”‚  validates on held-out data and saves the best      â”‚
+â”‚  performing weights â†’ ckpt-best.pth                 â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+```
+
+**Key parameters** (set in `train_pcn.py`):
+
+| Parameter | Value | Meaning |
+|---|---|---|
+| `N_INPUT_POINTS` | 2,048 | Points fed into the model per sample |
+| `UPSAMPLE_FACTORS` | [1, 4, 4] | Output grows to 16,384 points (2048Ã—1Ã—4Ã—4) |
+| `BATCH_SIZE` | 8 | Samples processed simultaneously |
+| `N_EPOCHS` | 400 | Total training passes over the dataset |
+| `LEARNING_RATE` | 0.001 | Initial step size for weight updates |
+| `WARMUP_EPOCHS` | 20 | Ramp-up period before full learning rate |
+
+---
+
+### Inference Flow
+
+The goal of inference is to take a real, large-scale castle scan (tens of millions of points) and fill in the missing or sparse regions using the trained model.
+
+Because the model accepts exactly 2,048 points at a time, the large scan is divided into small overlapping cube-shaped patches. Each patch is repaired independently, and all results are merged at the end.
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Input                                              â”‚
+â”‚  Large castle PLY file  (tens of millions of pts)   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚  run_castle_inference.py
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Patch Center Generation                            â”‚
+â”‚  Voxel downsample the scan at stride=0.02 m         â”‚
+â”‚  â†’ produces a grid of patch centers covering        â”‚
+â”‚    the entire structure                             â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚  For each patch center (loop)
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Per-Patch Processing                               â”‚
+â”‚                                                     â”‚
+â”‚  (a) Extract all points within a 0.25 m cube        â”‚
+â”‚      around the center                              â”‚
+â”‚  (b) If fewer than 256 points â†’ skip (empty region) â”‚
+â”‚  (c) Sample or upsample to exactly 2,048 points     â”‚
+â”‚  (d) Normalize: shift centroid to origin, scale     â”‚
+â”‚      so the patch fits in a unit sphere             â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Model Inference  (trained ckpt-best.pth)           â”‚
+â”‚  Input: 2,048 normalized points                     â”‚
+â”‚  Output: 16,384 completed points                    â”‚
+â”‚  Inverse-transform back to original coordinates     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚  After all patches are processed
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Post-Processing                                    â”‚
+â”‚                                                     â”‚
+â”‚  1. SOR Filter â€” removes statistical outliers       â”‚
+â”‚  2. Voxel Downsample (0.0005 m) â€” unifies density   â”‚
+â”‚  3. Color Transfer â€” assigns colors to new points   â”‚
+â”‚     by weighted average of K=3 nearest original pts â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  Output                                             â”‚
+â”‚  Original scan + generated points merged into       â”‚
+â”‚  a single colored PLY file                          â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+```
+
+**Key parameters** (set at the top of `run_castle_inference.py`):
+
+| Parameter | Value | Meaning |
+|---|---|---|
+| `PATCH_SIZE` | 0.25 m | Side length of each cube patch |
+| `CENTER_STRIDE` | 0.02 m | Spacing between patch centers |
+| `MIN_KEEP` | 256 pts | Minimum points required to process a patch |
+| `FINAL_VOXEL_SIZE` | 0.0005 m | Output point spacing after downsampling |
+
+---
+
+### File Roles at a Glance
+
+| File | Role |
+|---|---|
+| `train_pcn.py` | Entry point for training â€” loads config and starts the pipeline |
+| `manager.py` | Manages the training loop, validation, and checkpoint saving |
+| `model.py` | Defines the SeedFormer neural network architecture |
+| `utils/data_loaders.py` | Reads and batches the training dataset |
+| `utils/loss_utils.py` | Computes Chamfer Distance loss at each stage |
+| `run_castle_inference.py` | Entry point for inference on real castle point clouds |
+
+---
+
 ## Requirements
 * Python 3.x
 * PyTorch
@@ -114,7 +272,7 @@ We have made the following improvements to the original SeedFormer:
 Follow these steps to train the model with your own data (castles, shrines, etc.):
 
 1.  Prepare the large-scale point cloud data (e.g., PLY format).
-2.  Run the notebook **`ŠwKƒf[ƒ^®Œ`—p.ipynb` (Training_Data_Preprocessing.ipynb)**.
+2.  Run the notebook **`ï¿½wï¿½Kï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½`ï¿½p.ipynb` (Training_Data_Preprocessing.ipynb)**.
     * This notebook formats the input data into `complete` (ground truth) and `partial` (defective data from 5 viewpoints) sets suitable for `train_pcn.py`.
 3.  Run the training script.
     * **Note**: `gcc-9` and `g++-9` are required to compile the custom operations.
@@ -125,7 +283,7 @@ Follow these steps to train the model with your own data (castles, shrines, etc.
 ### 2. Inference
 Follow these steps to restore defective point clouds using the trained model:
 
-1.  Input the target point cloud file into **`„˜_ƒf[ƒ^®Œ`—p.ipynb` (Inference_Data_Preprocessing.ipynb)** for preprocessing.
+1.  Input the target point cloud file into **`ï¿½ï¿½ï¿½_ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½`ï¿½p.ipynb` (Inference_Data_Preprocessing.ipynb)** for preprocessing.
 2.  Update the `path` variable in `run_castle_inference.py` to point to the formatted data.
 3.  Run the inference script:
     ```bash
