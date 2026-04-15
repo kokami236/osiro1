@@ -126,26 +126,129 @@ AIモデルに「欠損した点群から完全な形状を予測するルール
 * `manager.py`: 学習管理ロジックの変更
 * `run_castle_inference.py`: 推論実行用スクリプトの調整
 
+## 点群データの保管構造
+
+本プロジェクトでは、学習データと推論データで異なるフォーマットを使用しています。
+
+### フォーマット概要
+
+| 用途 | フォーマット | 説明 |
+|------|------------|------|
+| 学習データ（partial/complete） | `.pcd` | バイナリ形式。点群補完モデルの標準フォーマット |
+| 生の入力・推論結果 | `.ply` | RGB色情報付き。スマートフォンスキャンや出力に使用 |
+| データセット定義 | `.json` | 学習/テスト/検証に使うファイル名の一覧 |
+
+### 学習用データセットのディレクトリ構造
+
+学習には、各モデルに対して「完全な点群（complete）」と「5視点から欠損させた点群（partial）」のペアが必要です。
+
+```
+My_PCN_Dataset/
+└── shapenet_pc/
+    └── 02691156/               ← カテゴリID（"airplane"に対応）
+        ├── train/
+        │   └── custom/
+        │       ├── complete/
+        │       │   └── airplane/
+        │       │       ├── {model_id}.pcd     ← 完全な点群（教師データ）
+        │       │       └── ...
+        │       └── partial/
+        │           └── airplane/
+        │               ├── {model_id}/
+        │               │   ├── 00.pcd         ← 視点0からの欠損点群
+        │               │   ├── 01.pcd         ← 視点1からの欠損点群
+        │               │   ├── ...
+        │               │   └── 04.pcd         ← 視点4（計5視点）
+        │               └── ...
+        └── test/
+            └── （同様の構造）
+└── Custom.json                 ← 学習・テスト対象のファイル名リスト
+```
+
+### partial（欠損点群）の生成方法
+
+`学習データ整形用.ipynb` がこの処理を行います。大まかな流れ：
+
+1. **完全点群（PLY）を読み込み** → ジオラマの3Dスキャンデータ
+2. **5方向から仮想的にカメラを配置** → それぞれの視点から「見える点だけ」を抽出
+3. **各視点の点群を `.pcd` 形式で保存** → `partial/{model_id}/00.pcd` ～ `04.pcd`
+4. **2,048点未満のチャンクは除外** → ノイズ扱いで学習データから除去
+5. **最密視点を優先採用** → 点数が最も多い視点を学習に使用
+
+### Custom.json の役割
+
+`create_json.py` が生成するファイルで、学習スクリプトがデータを探す際のインデックスです。
+
+```json
+[
+  {
+    "taxonomy_id": "02691156",
+    "taxonomy_name": "airplane",
+    "train": ["model_001", "model_002", ...],
+    "test":  ["model_050", ...],
+    "val":   ["model_050", ...]
+  }
+]
+```
+
+このJSONが `train_pcn.py` から参照され、`partial/` と `complete/` 以下の対応する `.pcd` ファイルが読み込まれます。
+
 ## 環境構築
-* Python 3.x
-* PyTorch
+
+### ハードウェア要件
+* NVIDIA GPU（CUDA対応）※ 推論だけでも GPU 必須
+* 推奨 VRAM: 8GB 以上
+
+### ソフトウェア要件
+* Python 3.8
+* PyTorch（CUDA対応版）
 * Open3D
 * **GCC/G++ 9**（カスタムCUDA演算のコンパイルに必要）
+
+### インストール手順
+
+```bash
+# 1. 依存パッケージのインストール
+pip install -r seedformer-master/requirements.txt
+
+# 2. Chamfer Distance のビルド（CUDA拡張）
+cd Chamfer3D
+CC=gcc-9 CXX=g++-9 python setup.py install
+cd ..
+
+# 3. PointNet2 ops のビルド（CUDA拡張）
+cd pointnet2_ops_lib
+CC=gcc-9 CXX=g++-9 python setup.py install
+cd ..
+```
+
+> GCC/G++ 9 以外のバージョンでは CUDA 拡張のコンパイルに失敗する場合があります。
 
 ## 使用方法
 
 ### 1. データセットの作成・学習
-1. 学習させたい大規模点群データ（PLY形式など）を用意します。
+1. 学習させたい大規模点群データ（PLY形式）を用意します。
 2. **`学習データ整形用.ipynb`** を実行します。
-   * `complete`（教師データ）と `partial`（5視点からの欠損データ）に整形し、学習形式に変換します。
-3. 学習を実行します。（`gcc-9` / `g++-9` が必要）
+   * `complete`（教師データ）と `partial`（5視点からの欠損データ）の `.pcd` ファイルに整形します。
+3. **`create_json.py`** を実行して `Custom.json` を生成します。
+   ```bash
+   python create_json.py
+   ```
+4. `train_pcn.py` 内のデータセットパスを自分の環境に合わせて更新します。
+5. 学習を実行します。（`gcc-9` / `g++-9` が必要）
    ```bash
    CC=gcc-9 CXX=g++-9 python3 train_pcn.py
    ```
+   * 学習済みモデルは `results/train_pcn_Log_*/checkpoints/ckpt-best.pth` に保存されます。
 
 ### 2. 推論の実行
-1. 補完したい点群ファイルを **`推論データ整形用.ipynb`** で前処理します。
-2. `run_castle_inference.py` 内のパス変数を更新します。
+1. 補完したい点群ファイル（PLY形式）を **`推論データ整形用.ipynb`** で前処理します。
+2. `run_castle_inference.py` 内の以下のパス変数を更新します。
+   ```python
+   MODEL_PATH = "/path/to/ckpt-best.pth"   # 学習済み重みのパス
+   INPUT_PLY  = "/path/to/input.ply"        # 入力点群のパス
+   OUTPUT_PLY = "output.ply"                # 出力ファイル名
+   ```
 3. スクリプトを実行します。
    ```bash
    CC=gcc-9 CXX=g++-9 python3 run_castle_inference.py
@@ -287,26 +390,125 @@ The model processes one small cube-shaped patch at a time and merges all results
 | `utils/loss_utils.py` | Computes Chamfer Distance loss at each stage |
 | `run_castle_inference.py` | Inference on real castle point clouds |
 
+## Point Cloud Data Storage
+
+### File Formats
+
+| Purpose | Format | Description |
+|---------|--------|-------------|
+| Training data (partial/complete) | `.pcd` | Binary format — standard for point cloud completion models |
+| Raw input / inference output | `.ply` | RGB color included — used for smartphone scans and outputs |
+| Dataset index | `.json` | Maps file names to train/test/val splits |
+
+### Dataset Directory Structure
+
+Training requires **complete** (ground truth) and **partial** (5-viewpoint defective) `.pcd` pairs for each model.
+
+```
+My_PCN_Dataset/
+└── shapenet_pc/
+    └── 02691156/                ← Category ID (mapped to "airplane")
+        ├── train/
+        │   └── custom/
+        │       ├── complete/
+        │       │   └── airplane/
+        │       │       ├── {model_id}.pcd     ← Full point cloud (ground truth)
+        │       │       └── ...
+        │       └── partial/
+        │           └── airplane/
+        │               ├── {model_id}/
+        │               │   ├── 00.pcd         ← Viewpoint 0 (defective)
+        │               │   ├── 01.pcd         ← Viewpoint 1
+        │               │   ├── ...
+        │               │   └── 04.pcd         ← Viewpoint 4 (5 total)
+        │               └── ...
+        └── test/
+            └── (same structure)
+└── Custom.json                  ← Index file listing train/test filenames
+```
+
+### How Partial Point Clouds Are Generated
+
+`学習データ整形用.ipynb` handles this process:
+
+1. Load complete PLY scan (castle diorama)
+2. Place virtual cameras at 5 directions → extract only visible points from each viewpoint
+3. Save each viewpoint as a `.pcd` file → `partial/{model_id}/00.pcd` to `04.pcd`
+4. Drop chunks with fewer than 2,048 points (treated as noise)
+5. Prioritize the viewpoint with the highest point density
+
+### Custom.json
+
+Generated by `create_json.py`. Acts as the dataset index read by `train_pcn.py`.
+
+```json
+[
+  {
+    "taxonomy_id": "02691156",
+    "taxonomy_name": "airplane",
+    "train": ["model_001", "model_002", ...],
+    "test":  ["model_050", ...],
+    "val":   ["model_050", ...]
+  }
+]
+```
+
 ## Requirements
-* Python 3.x
-* PyTorch
+
+### Hardware
+* NVIDIA GPU (CUDA-capable) — required even for inference
+* Recommended VRAM: 8 GB or more
+
+### Software
+* Python 3.8
+* PyTorch (CUDA build)
 * Open3D
 * **GCC/G++ 9** (Required for compiling custom CUDA operations)
+
+### Installation
+
+```bash
+# 1. Install Python dependencies
+pip install -r seedformer-master/requirements.txt
+
+# 2. Build Chamfer Distance (CUDA extension)
+cd Chamfer3D
+CC=gcc-9 CXX=g++-9 python setup.py install
+cd ..
+
+# 3. Build PointNet2 ops (CUDA extension)
+cd pointnet2_ops_lib
+CC=gcc-9 CXX=g++-9 python setup.py install
+cd ..
+```
+
+> Versions other than GCC/G++ 9 may fail to compile the CUDA extensions.
 
 ## Usage
 
 ### 1. Training
-1. Prepare large-scale point cloud data (e.g., PLY format).
+1. Prepare large-scale point cloud data (PLY format).
 2. Run **`学習データ整形用.ipynb`** (Training Data Preprocessing notebook).
-   * Converts raw data into `complete` (ground truth) and `partial` (5-viewpoint defective) sets.
-3. Run training (`gcc-9` / `g++-9` required):
+   * Converts raw data into `complete` (ground truth) and `partial` (5-viewpoint defective) `.pcd` sets.
+3. Run **`create_json.py`** to generate `Custom.json`:
    ```bash
-   CC=gcc-9 CXX=g++-9 python3 train_pcn.py
+   python create_json.py
    ```
+4. Update dataset paths in `train_pcn.py` to match your environment.
+5. Run training (`gcc-9` / `g++-9` required):
+   ```bash
+   CC=gcc-9 CXX=g+=-9 python3 train_pcn.py
+   ```
+   * The best checkpoint is saved to `results/train_pcn_Log_*/checkpoints/ckpt-best.pth`.
 
 ### 2. Inference
-1. Run **`推論データ整形用.ipynb`** (Inference Data Preprocessing notebook) on target PLY.
-2. Update the path variable in `run_castle_inference.py`.
+1. Run **`推論データ整形用.ipynb`** (Inference Data Preprocessing notebook) on your target PLY.
+2. Update the path variables in `run_castle_inference.py`:
+   ```python
+   MODEL_PATH = "/path/to/ckpt-best.pth"   # trained weights
+   INPUT_PLY  = "/path/to/input.ply"        # input point cloud
+   OUTPUT_PLY = "output.ply"                # output filename
+   ```
 3. Run inference:
    ```bash
    CC=gcc-9 CXX=g++-9 python3 run_castle_inference.py
